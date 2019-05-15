@@ -1,0 +1,46 @@
+.sharebox {
+  width: 240px;
+  background: #ef314a;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  font-size: 1.125rem;
+}
+
+.sharebox .labelbox {
+  background: #DB253D;
+  padding: 0 15px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+}
+.sharebox .labelbox i {
+  margin-right: 5px;
+}
+
+.sharebox .social {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-grow: 1;
+  cursor: pointer;
+}
+.sharebox .social a {
+  position: relative;
+  display: block;
+  padding: 8px;
+}
+.sharebox .social a:after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: calc(50% - 9px);
+  right: -7px;
+  background: #fff;
+  width: 1px;
+  height: 18px;
+}
+.sharebox .social a:last-child:after{
+  display: none;
+}
