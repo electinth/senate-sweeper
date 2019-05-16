@@ -203,20 +203,30 @@ code {
   /* disable hold to save image in iOS */
   -webkit-touch-callout: none;
   width: 25px;
-  height: 25px;
-  font-size: 20px;
-  background-color: transparent;
-  border: 0;
+  height: 30px;
+  font-family: 'The Matter';
+  font-size: 16px;
+  color: #0055E3;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px solid white;
   display: inline-block;
   position: relative;
   padding: 2px 3px;
+  text-align: center;
   vertical-align: middle;
   cursor: pointer;
 }
 
 .unmasked {
   cursor: default;
+  background-color: rgba(0, 0, 0, 0.12);
 }
+.flagged {
+  color: red;
+}
+/* .bombed {
+  color: black;
+} */
 
 #map {
   white-space: nowrap;
@@ -258,18 +268,19 @@ code {
 
 .stat {
   width: 33.3%;
-  font-size: 0.85em;
+  font-family: 'Noto Sans Thai UI';
+  font-size: 16px;
   padding: 8px 10px 5px;
   text-align: center;
 }
 
-.small-text {
+/* .small-text {
   display: block;
   color: #999;
   margin-top: 5px;
   font-size: 0.7em;
   letter-spacing: 1px;
-}
+} */
 
 .settings {
   position: absolute;
