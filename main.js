@@ -1,12 +1,14 @@
-var emojiset = document.getElementById('emojiset').value.split(' ')
-var cols = document.getElementById('cols')
-var rows = document.getElementById('rows')
-var bombs = document.getElementById('bombs')
+// var emojiset = document.getElementById('emojiset').value.split(' ')
+// var cols = document.getElementById('cols')
+// var rows = document.getElementById('rows')
+// var bombs = document.getElementById('bombs')
 
-game = new Game(cols.value, rows.value, bombs.value, emojiset, document.getElementById('twemoji').checked)
+// game = new Game(cols.value, rows.value, bombs.value, emojiset, false)
 
-document.querySelector('.js-new-game').addEventListener('click', restart)
-document.querySelector('.js-popup-new-game').addEventListener('click', restart)
+restart();
+
+// document.querySelector('.js-new-game').addEventListener('click', restart)
+// document.querySelector('.js-popup-new-game').addEventListener('click', restart)
 
 // document.querySelector('.js-settings').addEventListener('click', function() {
 //   var list = document.querySelector('.js-settings-popup').classList
@@ -16,8 +18,8 @@ document.querySelector('.js-popup-new-game').addEventListener('click', restart)
 
 function restart () {
   clearInterval(game.timer)
-  emojiset = document.getElementById('emojiset').value.split(' ')
-  game = new Game(cols.value, rows.value, bombs.value, emojiset, document.getElementById('twemoji').checked)
+  // emojiset = document.getElementById('emojiset').value.split(' ')
+  game = new Game(16, 16, 101, ["◻️", "⚔️", "❗️", "⬛️"], false)
   // document.querySelector('.js-settings-popup').classList.remove('show')
   return false
 }

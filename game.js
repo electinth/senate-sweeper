@@ -177,8 +177,8 @@ Game.prototype.restart = function (usetwemoji) {
 Game.prototype.resetMetadata = function () {
   document.getElementById('timer').textContent = '0.00'
   document.querySelector('.wrapper').classList.remove('won', 'lost')
-  document.querySelector('.result-emoji').textContent = ''
-  document.querySelector('.default-emoji').innerHTML = this.usetwemoji ? twemoji.parse('😀') : '😀'
+  // document.querySelector('.result-emoji').textContent = ''
+  // document.querySelector('.default-emoji').innerHTML = this.usetwemoji ? twemoji.parse('😀') : '😀'
   // document.querySelector('.js-settings').innerHTML = this.usetwemoji ? twemoji.parse('🔧') : '🔧'
 }
 
@@ -296,7 +296,7 @@ Game.prototype.showMessage = function () {
   this.updateFeedback(winner ? "Yay, you won!" : "Boom! you lost.")
   document.querySelector('.wrapper').classList.add(this.result)
   document.getElementById('timer').textContent = seconds
-  document.getElementById('result').innerHTML = this.usetwemoji ? twemoji.parse(emoji) : emoji
+  // document.getElementById('result').innerHTML = this.usetwemoji ? twemoji.parse(emoji) : emoji
 }
 
 // console documentation

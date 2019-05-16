@@ -85,7 +85,7 @@ body {
   font-size: 15px;
   text-align: center;
   /* color: white; */
-  background-color: black;
+  /* background-color: black; */
   /* padding: 20px 0; */
 }
 
@@ -227,9 +227,9 @@ code {
   position: relative;
   -webkit-user-select: none;
   user-select: none;
-  border-radius: 10px;
-  margin-top: 10px;
-  border: 5px solid #f4f4f4;
+  /* border-radius: 10px; */
+  /* margin-top: 10px; */
+  /* border: 5px solid #f4f4f4; */
   display: inline-block;
   min-width: 250px;
 }
@@ -244,18 +244,17 @@ code {
   pointer-events: none;
 }
 
-.lost {
+/* .lost {
   box-shadow: 0 0 1px #f00;
 }
-
 .won {
   box-shadow: 0 0 1px #1a1;
-}
+} */
 
-.bar {
+/* .bar {
   margin: 10px -10px -10px;
   background-color: #f4f4f4;
-}
+} */
 
 .stat {
   width: 33.3%;
