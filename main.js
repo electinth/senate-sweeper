@@ -279,9 +279,17 @@ Game.prototype.showMessage = function () {
 
 restart();
 
-
 function restart () {
   clearInterval(game.timer)
   game = new Game(16, 16, 101, ["", "X", "!", ""])
   return false
 }
+
+let popup = document.getElementById('popup');
+// popup.addEventListener('click', () => {
+//   popup.classList.remove('shown');
+// });
+let popup_button = popup.getElementsByClassName('button')[0];
+popup_button.addEventListener('click', () => {
+  popup.classList.remove('shown');
+});
