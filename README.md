@@ -1,3 +1,3 @@
-# Democracy Calendar
+# Senate Sweeper
 
-To complement the physical paper calendar poster
+A minesweeper game clone on Thai senator nomination in 2019
