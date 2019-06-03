@@ -163,7 +163,7 @@ a:hover {
 #senate-popup .name {
   font-size: 20px;
   font-family: 'The Matter';
-  font-weight: bold;
+  font-weight: normal;
 }
 #senate-popup .button {
   width: 120px;

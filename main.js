@@ -65,10 +65,14 @@ class Game {
   bindEvents() {
     let that = this;
     let cells = document.getElementsByClassName('cell');
-    Array.prototype.forEach.call(cells, function (target) {
+
+    let popup = document.getElementById('senate-popup');
+    let popup_button_flag = popup.getElementsByClassName('button')[0];
+    let popup_button_reveal = popup.getElementsByClassName('button')[1];
+
+    Array.prototype.forEach.call(cells, target => {
       // clicking on a cell and revealing cell
       target.addEventListener('click', evt => {
-        let popup = document.getElementById('senate-popup');
         if (evt.clientY > window.innerHeight - 150) {
           popup.style.bottom = '150px';
         } else {
@@ -76,8 +80,8 @@ class Game {
         }
         popup.classList.add('shown');
 
-        let popup_button_flag = popup.getElementsByClassName('button')[0];
-        popup_button_flag.addEventListener('click', () => {
+        // left button to flag
+        popup_button_flag.addEventListener('click', function handler(evt) {
           let emoji;
           evt.preventDefault();
           if (!target.isMasked) {
@@ -101,11 +105,11 @@ class Game {
           target.appendChild(emoji);
           that.updateBombsLeft();
 
+          popup_button_flag.removeEventListener('click', handler);
           popup.classList.remove('shown');
         });
-
-        let popup_button_reveal = popup.getElementsByClassName('button')[1];
-        popup_button_reveal.addEventListener('click', () => {
+        // right button to open
+        popup_button_reveal.addEventListener('click', function handler(evt) {
           if (!target.isMasked || target.isFlagged) {
             return;
           }
@@ -128,6 +132,7 @@ class Game {
           }
           that.game();
 
+          popup_button_reveal.removeEventListener('click', handler);
           popup.classList.remove('shown');
         });
       });
