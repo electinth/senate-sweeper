@@ -245,24 +245,35 @@ code {
 .cell {
   /* disable hold to save image in iOS */
   -webkit-touch-callout: none;
-  width: 25px;
-  height: 30px;
-  font-family: 'The Matter';
-  font-size: 16px;
+  width: 20px;
+  height: 28px;
+  line-height: 28px;
+  font-family: 'Elect Minesweeper';
+  font-size: 28px;
   color: #0055E3;
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 2px solid white;
+  background: none;
+  border: none;
+  /* background-color: rgba(0, 0, 0, 0.4); */
+  /* border: 2px solid white; */
   display: inline-block;
   position: relative;
-  padding: 2px 3px;
+  /* padding: 2px 3px; */
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
 }
+button,
+button:hover,
+button:focus,
+button:active {
+  background: none;
+  border: none;
+  padding: 0;
+}
 
 .unmasked {
   cursor: default;
-  background-color: rgba(0, 0, 0, 0.12);
+  /* background-color: rgba(0, 0, 0, 0.12); */
 }
 .flagged {
   color: #F81745;
@@ -273,7 +284,7 @@ code {
 }
 
 .wrapper {
-  padding: 10px;
+  padding: 10px 0;
   position: relative;
   -webkit-user-select: none;
   user-select: none;
@@ -295,7 +306,7 @@ code {
   width: 33.3%;
   font-family: 'Noto Sans Thai UI';
   font-size: 16px;
-  padding: 8px 10px 5px;
+  /* padding: 8px 10px 5px; */
   text-align: center;
 }
 

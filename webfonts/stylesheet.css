@@ -1,13 +1,24 @@
+@font-face {
+  font-family: 'Elect Minesweeper';
+  src: url('elect_minesweeper.woff2') format('woff2'), 
+    url('elect_minesweeper.woff') format('woff'),
+    url('elect_minesweeper.ttf')  format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Noto Sans Thai UI Web fonts - PAKIN.ME */
 @font-face {
   font-family: 'Noto Sans Thai UI';
-  src: url('subset-NotoSansThaiUI-Bold.woff2') format('woff2'), url('subset-NotoSansThaiUI-Bold.woff') format('woff');
+  src: url('subset-NotoSansThaiUI-Bold.woff2') format('woff2'),
+    url('subset-NotoSansThaiUI-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: 'Noto Sans Thai UI';
-  src: url('subset-NotoSansThaiUI-Regular.woff2') format('woff2'), url('subset-NotoSansThaiUI-Regular.woff') format('woff');
+  src: url('subset-NotoSansThaiUI-Regular.woff2') format('woff2'),
+    url('subset-NotoSansThaiUI-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

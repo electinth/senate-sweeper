@@ -1,18 +1,17 @@
 /* global twemoji, alert, MouseEvent, game */
-const numbers = ['1', '2', '3', '4', '5', '6', '7', '8']
 const iDevise = navigator.platform.match(/^iP/)
 const feedback = document.querySelector('.feedback')
 
 class Game {
-  constructor(cols, rows, number_of_bombs, set) {
+  constructor(cols, rows, number_of_bombs, set, numbers) {
     this.number_of_cells = cols * rows;
     this.map = document.getElementById('map');
     this.cols = Number(cols);
     this.rows = Number(rows);
     this.number_of_bombs = Number(number_of_bombs);
     this.rate = number_of_bombs / this.number_of_cells;
-    this.emojiset = set;
-    this.numbermoji = [this.emojiset[0]].concat(numbers);
+    this.emojiset = set; // number prefix, bomb, flagged, empty
+    this.numbermoji = numbers;
     this.init();
   }
   init() {
@@ -267,7 +266,7 @@ restart();
 
 function restart () {
   clearInterval(game.timer)
-  game = new Game(16, 16, 101, [" ", "X", "!", " "])
+  game = new Game(16, 16, 101, [' ', '', '', ''], ['', '', '', '', '', '', '', ''])
   return false
 }
 
