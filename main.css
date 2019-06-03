@@ -129,6 +129,53 @@ a:hover {
   cursor: pointer;
 }
 
+#senate-popup {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+}
+#senate-popup.shown {
+  opacity: 1;
+  pointer-events: auto;
+}
+#senate-popup .inner {
+  width: 300px;
+  height: 100px;
+  margin: 0 auto;
+  position: relative;
+  vertical-align: middle;
+  background-color: white;
+  color: black;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 2px;
+  padding: 25px;
+  font-size: 14px;
+  font-family: 'Noto Sans Thai UI';
+  text-align: center;
+  box-shadow: 0 12px 24px 0 rgba(0,0,0,0.24);
+}
+#senate-popup .name {
+  font-size: 20px;
+  font-family: 'The Matter';
+  font-weight: bold;
+}
+#senate-popup .button {
+  width: 120px;
+  height: 32px;
+  display: inline-block;
+  bottom: 10px;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
+}
+
 #game {
   scroll-snap-align: start;
   /* padding-top: 100px; */
@@ -259,7 +306,7 @@ code {
   line-height: 28px;
   font-family: 'Elect Minesweeper';
   font-size: 28px;
-  color: #999999;
+  color: #8c8c8c;
   /* color: #0055E3; */
   background: none;
   border: none;

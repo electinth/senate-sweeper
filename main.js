@@ -67,78 +67,124 @@ class Game {
     let cells = document.getElementsByClassName('cell');
     Array.prototype.forEach.call(cells, function (target) {
       // clicking on a cell and revealing cell
-      target.addEventListener('click', function (evt) {
-        if (!target.isMasked || target.isFlagged)
-          return;
-        if (document.getElementsByClassName('unmasked').length === 0) {
-          that.startTimer();
-          if (target.isBomb) {
-            that.restart();
-            let targetClasses = target.className.replace('unmasked', '');
-            document.getElementsByClassName(targetClasses)[0].click();
+      target.addEventListener('click', evt => {
+        let popup = document.getElementById('senate-popup');
+        if (evt.clientY > window.innerHeight - 150) {
+          popup.style.bottom = '150px';
+        } else {
+          popup.style.bottom = '10px';
+        }
+        popup.classList.add('shown');
+
+        let popup_button_flag = popup.getElementsByClassName('button')[0];
+        popup_button_flag.addEventListener('click', () => {
+          let emoji;
+          evt.preventDefault();
+          if (!target.isMasked) {
             return;
           }
-        }
-        if (evt.view)
-          that.moveIt();
-        target.reveal();
-        that.updateFeedback(target.getAttribute('aria-label'));
-        if (target.mine_count === 0 && !target.isBomb) {
-          that.revealNeighbors(target);
-        }
-        that.game();
-      });
-      // double clicking on a cell and opening the cell and all 8 of its neighbors
-      target.addEventListener('dblclick', function () {
-        if (target.isFlagged)
-          return;
-        that.moveIt();
-        target.reveal();
-        that.revealNeighbors(target);
-        that.game();
-      });
-      // marking a cell as a potential bomb
-      target.addEventListener('contextmenu', function (evt) {
-        let emoji;
-        evt.preventDefault();
-        if (!target.isMasked) {
-          return;
-        }
-        if (target.isFlagged) {
-          target.setAttribute('aria-label', 'Field');
-          that.updateFeedback('Unflagged as potential bomb');
-          emoji = that.emojiset[3].cloneNode();
-          target.isFlagged = false;
-          target.classList.remove('flagged');
-        }
-        else {
-          target.setAttribute('aria-label', 'Flagged as potential bomb');
-          that.updateFeedback('Flagged as potential bomb');
-          emoji = that.emojiset[2].cloneNode();
-          target.isFlagged = true;
-          target.classList.add('flagged');
-        }
-        target.childNodes[0].remove();
-        target.appendChild(emoji);
-        that.updateBombsLeft();
-      });
-      // support to HOLD to mark bomb, works in Android by default
-      if (iDevise) {
-        target.addEventListener('touchstart', function (evt) {
-          that.holding = setTimeout(function () {
-            target.dispatchEvent(new Event('contextmenu'));
-          }, 500);
+          if (target.isFlagged) {
+            target.setAttribute('aria-label', 'Field');
+            that.updateFeedback('Unflagged as potential bomb');
+            emoji = that.emojiset[3].cloneNode();
+            target.isFlagged = false;
+            target.classList.remove('flagged');
+          }
+          else {
+            target.setAttribute('aria-label', 'Flagged as potential bomb');
+            that.updateFeedback('Flagged as potential bomb');
+            emoji = that.emojiset[2].cloneNode();
+            target.isFlagged = true;
+            target.classList.add('flagged');
+          }
+          target.childNodes[0].remove();
+          target.appendChild(emoji);
+          that.updateBombsLeft();
+
+          popup.classList.remove('shown');
         });
-        target.addEventListener('touchend', function (evt) {
-          clearTimeout(that.holding);
+
+        let popup_button_reveal = popup.getElementsByClassName('button')[1];
+        popup_button_reveal.addEventListener('click', () => {
+          if (!target.isMasked || target.isFlagged) {
+            return;
+          }
+          if (document.getElementsByClassName('unmasked').length === 0) {
+            that.startTimer();
+            if (target.isBomb) {
+              that.restart();
+              let targetClasses = target.className.replace('unmasked', '');
+              document.getElementsByClassName(targetClasses)[0].click();
+              return;
+            }
+          }
+          if (evt.view) {
+            that.moveIt();
+          }
+          target.reveal();
+          that.updateFeedback(target.getAttribute('aria-label'));
+          if (target.mine_count === 0 && !target.isBomb) {
+            that.revealNeighbors(target);
+          }
+          that.game();
+
+          popup.classList.remove('shown');
         });
-      }
+      });
+
+      // // double clicking on a cell and opening the cell and all 8 of its neighbors
+      // target.addEventListener('dblclick', function () {
+      //   if (target.isFlagged)
+      //     return;
+      //   that.moveIt();
+      //   target.reveal();
+      //   that.revealNeighbors(target);
+      //   that.game();
+      // });
+
+      // // marking a cell as a potential bomb
+      // target.addEventListener('contextmenu', function (evt) {
+      //   let emoji;
+      //   evt.preventDefault();
+      //   if (!target.isMasked) {
+      //     return;
+      //   }
+      //   if (target.isFlagged) {
+      //     target.setAttribute('aria-label', 'Field');
+      //     that.updateFeedback('Unflagged as potential bomb');
+      //     emoji = that.emojiset[3].cloneNode();
+      //     target.isFlagged = false;
+      //     target.classList.remove('flagged');
+      //   }
+      //   else {
+      //     target.setAttribute('aria-label', 'Flagged as potential bomb');
+      //     that.updateFeedback('Flagged as potential bomb');
+      //     emoji = that.emojiset[2].cloneNode();
+      //     target.isFlagged = true;
+      //     target.classList.add('flagged');
+      //   }
+      //   target.childNodes[0].remove();
+      //   target.appendChild(emoji);
+      //   that.updateBombsLeft();
+      // });
+
+      // // support to HOLD to mark bomb, works in Android by default
+      // if (iDevise) {
+      //   target.addEventListener('touchstart', function (evt) {
+      //     that.holding = setTimeout(function () {
+      //       target.dispatchEvent(new Event('contextmenu'));
+      //     }, 500);
+      //   });
+      //   target.addEventListener('touchend', function (evt) {
+      //     clearTimeout(that.holding);
+      //   });
+      // }
     });
-    window.addEventListener('keydown', function (evt) {
-      if (evt.key == 'r' || evt.which == 'R'.charCodeAt()) {
-        that.restart();
-      }
-    });
+    // window.addEventListener('keydown', function (evt) {
+    //   if (evt.key == 'r' || evt.which == 'R'.charCodeAt()) {
+    //     that.restart();
+    //   }
+    // });
   }
   game() {
     if (this.result)
@@ -164,7 +210,7 @@ class Game {
     this.init();
   }
   resetMetadata() {
-    document.getElementById('timer').textContent = '0.00';
+    document.getElementById('timer').textContent = '0 วินาที';
     document.querySelector('.wrapper').classList.remove('won', 'lost');
   }
   startTimer() {
@@ -209,9 +255,7 @@ class Game {
   }
   prepareEmoji() {
     let that = this;
-    function makeEmojiElement(emoji) {
-      return document.createTextNode(emoji.alt || emoji.data || emoji);
-    }
+    let makeEmojiElement = emoji => document.createTextNode(emoji.alt || emoji.data || emoji);
     this.emojiset = this.emojiset.map(makeEmojiElement);
     this.numbermoji = this.numbermoji.map(makeEmojiElement);
   }
@@ -253,9 +297,8 @@ class Game {
   }
   showMessage() {
     clearInterval(this.timer);
-    let seconds = ((new Date() - this.startTime) / 1000).toFixed(2);
+    let seconds = ((new Date() - this.startTime) / 1000).toFixed(0);
     let winner = this.result === 'won';
-    let emoji = winner ? '😎' : '😵';
     this.updateFeedback(winner ? "Yay, you won!" : "Boom! you lost.");
     document.querySelector('.wrapper').classList.add(this.result);
     document.getElementById('timer').textContent = seconds;
