@@ -54,10 +54,17 @@ a:hover {
   color: white;
 }
 
-.site-header {
+/* .site-header {
   position: fixed;
   width: 100%;
   z-index: 2;
+} */
+.site-header {
+  position: relative;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  scroll-snap-align: start;
 }
 
 #conclusion {
@@ -123,13 +130,15 @@ a:hover {
 }
 
 #game {
-  padding-top: 100px;
+  scroll-snap-align: start;
+  /* padding-top: 100px; */
 }
 
 body {
   font-family: 'Libre Baskerville', serif;
   font-size: 15px;
   text-align: center;
+  scroll-snap-type: y mandatory;
 }
 
 span, input, a, div, button {
@@ -250,7 +259,8 @@ code {
   line-height: 28px;
   font-family: 'Elect Minesweeper';
   font-size: 28px;
-  color: #0055E3;
+  color: #999999;
+  /* color: #0055E3; */
   background: none;
   border: none;
   /* background-color: rgba(0, 0, 0, 0.4); */
