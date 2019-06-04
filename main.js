@@ -35,7 +35,7 @@ class Game {
     }
     let row = document.createElement('div');
     row.setAttribute('role', 'row');
-    grid_data.forEach(function (isBomb, i) {
+    grid_data.forEach((isBomb, i) => {
       let cell = document.createElement('span');
       cell.setAttribute('role', 'gridcell');
       let mine = that.mine(isBomb);
@@ -155,12 +155,12 @@ class Game {
     let masked = Array.prototype.filter.call(cells, cell => cell.isMasked);
     let bombs = Array.prototype.filter.call(cells, cell => cell.isBomb && !cell.isMasked);
     if (bombs.length > 0) {
-      Array.prototype.forEach.call(masked, function (cell) { cell.reveal(); });
+      Array.prototype.forEach.call(masked, cell => { cell.reveal(); });
       this.result = 'lost';
       this.showMessage();
     }
     else if (masked.length === this.number_of_bombs) {
-      Array.prototype.forEach.call(masked, function (cell) { cell.reveal(true); });
+      Array.prototype.forEach.call(masked, cell => { cell.reveal(true); });
       this.result = 'won';
       this.showMessage();
     }
@@ -179,7 +179,7 @@ class Game {
     if (this.timer)
       return;
     this.startTime = new Date();
-    this.timer = setInterval(function () {
+    this.timer = setInterval(() => {
       document.getElementById('timer').textContent = ((new Date() - game.startTime) / 1000).toFixed(0);
     }, 100);
   }

@@ -326,6 +326,9 @@ button:active {
   border: none;
   padding: 0;
 }
+button:hover {
+  color: #F81745;
+}
 
 .unmasked {
   cursor: default;
