@@ -74,7 +74,6 @@ class Game {
     Array.prototype.forEach.call(cells, target => {
       // event handlers
       function flag_handler(evt) {
-        console.log(target);
         let emoji;
         evt.preventDefault();
         if (!target.isMasked) {
@@ -100,6 +99,7 @@ class Game {
 
         popup_button_flag.removeEventListener('click', flag_handler);
         popup.classList.remove('shown');
+        target.classList.remove('selected');
       }
       function reveal_handler(evt) {
         if (!target.isMasked || target.isFlagged) {
@@ -107,12 +107,12 @@ class Game {
         }
         if (document.getElementsByClassName('unmasked').length === 0) {
           that.startTimer();
-          if (target.isBomb) {
-            that.restart();
-            let targetClasses = target.className.replace('unmasked', '');
-            document.getElementsByClassName(targetClasses)[0].click();
-            return;
-          }
+          // if (target.isBomb) {
+          //   that.restart();
+          //   target.classList.remove('unmasked');
+          //   // document.getElementsByClassName(targetClasses)[0].click();
+          //   return;
+          // }
         }
         if (evt.view) {
           that.moveIt();
@@ -126,10 +126,16 @@ class Game {
 
         popup_button_reveal.removeEventListener('click', reveal_handler);
         popup.classList.remove('shown');
+        target.classList.remove('selected');
       }
 
       // clicking on a cell and revealing cell
       target.addEventListener('click', evt => {
+        Array.prototype.forEach.call(cells, cell => {
+          cell.classList.remove('selected');
+        });
+        target.classList.add('selected');
+
         if (evt.clientY > window.innerHeight - 150) {
           popup.style.bottom = '150px';
         } else {
@@ -195,7 +201,7 @@ class Game {
     base.isMasked = true;
     if (bomb)
       base.isBomb = true;
-    base.reveal = function (won) {
+    base.reveal = function(won) {
       let emoji = base.isBomb ? (won ? that.emojiset[2] : that.emojiset[1]) : that.numbermoji[base.mine_count];
       let text = base.isBomb ? (won ? "Bomb discovered" : "Boom!") : (base.mine_count === 0 ? "Empty field" : base.mine_count + " bombs nearby");
       this.childNodes[0].remove();
@@ -273,7 +279,7 @@ restart();
 
 function restart () {
   clearInterval(game.timer)
-  game = new Game(16, 16, 101, [' ', '', '', ''], ['', '', '', '', '', '', '', ''])
+  game = new Game(16, 16, 101, [' ', '', '', ''], ['', '', '', '', '', '', '', '', ''])
   return false
 }
 

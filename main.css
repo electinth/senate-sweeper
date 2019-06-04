@@ -154,7 +154,7 @@ a:hover {
   color: black;
   border: 1px solid rgba(0,0,0,0.07);
   border-radius: 2px;
-  padding: 25px;
+  padding: 20px 10px;
   font-size: 14px;
   font-family: 'Noto Sans Thai UI';
   text-align: center;
@@ -162,11 +162,12 @@ a:hover {
 }
 #senate-popup .name {
   font-size: 20px;
+  line-height: 40px;
   font-family: 'The Matter';
   font-weight: normal;
 }
 #senate-popup .button {
-  width: 120px;
+  width: 130px;
   height: 32px;
   display: inline-block;
   bottom: 10px;
@@ -174,6 +175,10 @@ a:hover {
   line-height: 32px;
   text-align: center;
   cursor: pointer;
+}
+
+.button.right-border {
+  border-right: 1px solid rgba(0,0,0,0.07);
 }
 
 #game {
@@ -333,6 +338,9 @@ button:active {
   /* background-color: rgba(0, 0, 0, 0.12); */
 }
 .flagged {
+  color: #F81745;
+}
+.selected {
   color: #F81745;
 }
 
