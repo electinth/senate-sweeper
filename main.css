@@ -183,7 +183,6 @@ a:hover {
 
 #game {
   scroll-snap-align: start;
-  /* padding-top: 100px; */
 }
 
 body {
@@ -201,7 +200,6 @@ span, input, a, div, button {
   padding: 12px 15px;
   font-size: 0.65em;
   border-radius: 3px;
-  /* font-family: 'Exo 2', sans-serif; */
   color: #666;
   font-weight: bold;
   display: inline-block;
@@ -312,14 +310,10 @@ code {
   font-family: 'Elect Minesweeper';
   font-size: 28px;
   color: #8c8c8c;
-  /* color: #0055E3; */
   background: none;
   border: none;
-  /* background-color: rgba(0, 0, 0, 0.4); */
-  /* border: 2px solid white; */
   display: inline-block;
   position: relative;
-  /* padding: 2px 3px; */
   text-align: center;
   vertical-align: middle;
   cursor: pointer;

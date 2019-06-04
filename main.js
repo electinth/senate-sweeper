@@ -1,6 +1,6 @@
 /* global twemoji, alert, MouseEvent, game */
-const iDevise = navigator.platform.match(/^iP/)
-const feedback = document.querySelector('.feedback')
+const iDevise = navigator.platform.match(/^iP/);
+const feedback = document.getElementById('feedback');
 
 class Game {
   constructor(cols, rows, number_of_bombs, set, numbers) {
@@ -16,23 +16,21 @@ class Game {
   }
   init() {
     this.prepareEmoji();
-    if (this.number_of_cells > 2500) {
-      alert('too big, go away, have less than 2500 cells');
-      return false;
-    }
-    if (this.number_of_cells <= this.number_of_bombs) {
-      alert('more bombs than cells, can\'t do it');
-      return false;
-    }
+    // if (this.number_of_cells > 2500) {
+    //   alert('too big, go away, have less than 2500 cells');
+    //   return false;
+    // }
+    // if (this.number_of_cells <= this.number_of_bombs) {
+    //   alert('more bombs than cells, can\'t do it');
+    //   return false;
+    // }
     let that = this;
     this.moveIt(true);
     this.map.innerHTML = '';
     let grid_data = this.bomb_array();
     function getIndex(x, y) {
-      if (x > that.cols || x <= 0)
-        return -1;
-      if (y > that.cols || y <= 0)
-        return -1;
+      if (x > that.cols || x <= 0) return -1;
+      if (y > that.cols || y <= 0) return -1;
       return that.cols * (y - 1) + x - 1;
     }
     let row = document.createElement('div');
@@ -66,9 +64,9 @@ class Game {
     let that = this;
     let cells = document.getElementsByClassName('cell');
 
-    let popup = document.getElementById('senate-popup');
-    let popup_button_flag = popup.getElementsByClassName('button')[0];
-    let popup_button_reveal = popup.getElementsByClassName('button')[1];
+    const popup = document.getElementById('senate-popup');
+    const popup_button_flag = popup.getElementsByClassName('button')[0];
+    const popup_button_reveal = popup.getElementsByClassName('button')[1];
     let previous_listeners = [];
 
     Array.prototype.forEach.call(cells, target => {
@@ -80,14 +78,10 @@ class Game {
           return;
         }
         if (target.isFlagged) {
-          target.setAttribute('aria-label', 'Field');
-          that.updateFeedback('Unflagged as potential bomb');
           emoji = that.emojiset[3].cloneNode();
           target.isFlagged = false;
           target.classList.remove('flagged');
         } else {
-          target.setAttribute('aria-label', 'Flagged as potential bomb');
-          that.updateFeedback('Flagged as potential bomb');
           emoji = that.emojiset[2].cloneNode();
           target.isFlagged = true;
           target.classList.add('flagged');
@@ -117,7 +111,6 @@ class Game {
           that.moveIt();
         }
         target.reveal();
-        that.updateFeedback(target.getAttribute('aria-label'));
         if (target.mine_count === 0 && !target.isBomb) {
           that.revealNeighbors(target);
         }
@@ -194,7 +187,6 @@ class Game {
     let that = this;
     let base = document.createElement('button');
     base.type = 'button';
-    base.setAttribute('aria-label', 'Field');
     base.className = 'cell';
     base.appendChild(this.emojiset[3].cloneNode());
     base.isMasked = true;
@@ -205,7 +197,6 @@ class Game {
       let emoji = base.isBomb ? (won ? that.emojiset[2] : that.emojiset[1]) : that.numbermoji[base.mine_count];
       let text = base.isBomb ? (won ? "Bomb discovered" : "Boom!") : (base.mine_count === 0 ? "Empty field" : base.mine_count + " bombs nearby");
       this.childNodes[0].remove();
-      this.setAttribute('aria-label', text);
       this.appendChild(emoji.cloneNode());
       this.isMasked = false;
       this.classList.add('unmasked');
@@ -232,7 +223,7 @@ class Game {
     this.emojiset = this.emojiset.map(makeEmojiElement);
     this.numbermoji = this.numbermoji.map(makeEmojiElement);
   }
-  bomb_array() {
+  bomb_array() { // TODO use real data from Google Sheets
     let chance = Math.floor(this.rate * this.number_of_cells);
     let arr = [];
     for (let i = 0; i < chance; i++) {
@@ -261,7 +252,7 @@ class Game {
     let flagged = Array.prototype.filter.call(document.getElementsByClassName('cell'), target => target.isFlagged);
     document.getElementById('bombs-left').textContent = `${this.number_of_bombs - flagged.length}`;
   }
-  updateFeedback(text) {
+  updateFeedback(text) { // TODO show popup for result
     feedback.textContent = text;
     // Toggle period to force voiceover to read out the same content
     if (this.feedbackToggle)
@@ -282,15 +273,16 @@ restart();
 
 function restart () {
   clearInterval(game.timer)
-  game = new Game(16, 16, 101, [' ', '', '', ''], ['', '', '', '', '', '', '', '', ''])
+  // TODO adjust the number of bombs: คสช 20 & สนช 89
+  game = new Game(16, 16, 20, [' ', '', '', ''], ['', '', '', '', '', '', '', '', ''])
   return false
 }
 
-let popup = document.getElementById('popup');
+const popup = document.getElementById('popup');
 // popup.addEventListener('click', () => {
 //   popup.classList.remove('shown');
 // });
-let popup_button = popup.getElementsByClassName('button')[0];
+const popup_button = popup.getElementsByClassName('button')[0];
 popup_button.addEventListener('click', () => {
   popup.classList.remove('shown');
 });
