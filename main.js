@@ -69,8 +69,65 @@ class Game {
     let popup = document.getElementById('senate-popup');
     let popup_button_flag = popup.getElementsByClassName('button')[0];
     let popup_button_reveal = popup.getElementsByClassName('button')[1];
+    let previous_listeners = [];
 
     Array.prototype.forEach.call(cells, target => {
+      // event handlers
+      function flag_handler(evt) {
+        console.log(target);
+        let emoji;
+        evt.preventDefault();
+        if (!target.isMasked) {
+          return;
+        }
+        if (target.isFlagged) {
+          target.setAttribute('aria-label', 'Field');
+          that.updateFeedback('Unflagged as potential bomb');
+          emoji = that.emojiset[3].cloneNode();
+          target.isFlagged = false;
+          target.classList.remove('flagged');
+        }
+        else {
+          target.setAttribute('aria-label', 'Flagged as potential bomb');
+          that.updateFeedback('Flagged as potential bomb');
+          emoji = that.emojiset[2].cloneNode();
+          target.isFlagged = true;
+          target.classList.add('flagged');
+        }
+        target.childNodes[0].remove();
+        target.appendChild(emoji);
+        that.updateBombsLeft();
+
+        popup_button_flag.removeEventListener('click', flag_handler);
+        popup.classList.remove('shown');
+      }
+      function reveal_handler(evt) {
+        if (!target.isMasked || target.isFlagged) {
+          return;
+        }
+        if (document.getElementsByClassName('unmasked').length === 0) {
+          that.startTimer();
+          if (target.isBomb) {
+            that.restart();
+            let targetClasses = target.className.replace('unmasked', '');
+            document.getElementsByClassName(targetClasses)[0].click();
+            return;
+          }
+        }
+        if (evt.view) {
+          that.moveIt();
+        }
+        target.reveal();
+        that.updateFeedback(target.getAttribute('aria-label'));
+        if (target.mine_count === 0 && !target.isBomb) {
+          that.revealNeighbors(target);
+        }
+        that.game();
+
+        popup_button_reveal.removeEventListener('click', reveal_handler);
+        popup.classList.remove('shown');
+      }
+
       // clicking on a cell and revealing cell
       target.addEventListener('click', evt => {
         if (evt.clientY > window.innerHeight - 150) {
@@ -80,116 +137,18 @@ class Game {
         }
         popup.classList.add('shown');
 
-        // left button to flag
-        popup_button_flag.addEventListener('click', function handler(evt) {
-          let emoji;
-          evt.preventDefault();
-          if (!target.isMasked) {
-            return;
-          }
-          if (target.isFlagged) {
-            target.setAttribute('aria-label', 'Field');
-            that.updateFeedback('Unflagged as potential bomb');
-            emoji = that.emojiset[3].cloneNode();
-            target.isFlagged = false;
-            target.classList.remove('flagged');
-          }
-          else {
-            target.setAttribute('aria-label', 'Flagged as potential bomb');
-            that.updateFeedback('Flagged as potential bomb');
-            emoji = that.emojiset[2].cloneNode();
-            target.isFlagged = true;
-            target.classList.add('flagged');
-          }
-          target.childNodes[0].remove();
-          target.appendChild(emoji);
-          that.updateBombsLeft();
+        // remove previous events
+        popup_button_flag.removeEventListener('click', previous_listeners[0]); // left button to flag
+        popup_button_reveal.removeEventListener('click', previous_listeners[1]); // right button to open
 
-          popup_button_flag.removeEventListener('click', handler);
-          popup.classList.remove('shown');
-        });
-        // right button to open
-        popup_button_reveal.addEventListener('click', function handler(evt) {
-          if (!target.isMasked || target.isFlagged) {
-            return;
-          }
-          if (document.getElementsByClassName('unmasked').length === 0) {
-            that.startTimer();
-            if (target.isBomb) {
-              that.restart();
-              let targetClasses = target.className.replace('unmasked', '');
-              document.getElementsByClassName(targetClasses)[0].click();
-              return;
-            }
-          }
-          if (evt.view) {
-            that.moveIt();
-          }
-          target.reveal();
-          that.updateFeedback(target.getAttribute('aria-label'));
-          if (target.mine_count === 0 && !target.isBomb) {
-            that.revealNeighbors(target);
-          }
-          that.game();
+        popup_button_flag.addEventListener('click', flag_handler); // left button to flag
+        popup_button_reveal.addEventListener('click', reveal_handler); // right button to open
 
-          popup_button_reveal.removeEventListener('click', handler);
-          popup.classList.remove('shown');
-        });
+        previous_listeners = [];
+        previous_listeners.push(flag_handler);
+        previous_listeners.push(reveal_handler);
       });
-
-      // // double clicking on a cell and opening the cell and all 8 of its neighbors
-      // target.addEventListener('dblclick', function () {
-      //   if (target.isFlagged)
-      //     return;
-      //   that.moveIt();
-      //   target.reveal();
-      //   that.revealNeighbors(target);
-      //   that.game();
-      // });
-
-      // // marking a cell as a potential bomb
-      // target.addEventListener('contextmenu', function (evt) {
-      //   let emoji;
-      //   evt.preventDefault();
-      //   if (!target.isMasked) {
-      //     return;
-      //   }
-      //   if (target.isFlagged) {
-      //     target.setAttribute('aria-label', 'Field');
-      //     that.updateFeedback('Unflagged as potential bomb');
-      //     emoji = that.emojiset[3].cloneNode();
-      //     target.isFlagged = false;
-      //     target.classList.remove('flagged');
-      //   }
-      //   else {
-      //     target.setAttribute('aria-label', 'Flagged as potential bomb');
-      //     that.updateFeedback('Flagged as potential bomb');
-      //     emoji = that.emojiset[2].cloneNode();
-      //     target.isFlagged = true;
-      //     target.classList.add('flagged');
-      //   }
-      //   target.childNodes[0].remove();
-      //   target.appendChild(emoji);
-      //   that.updateBombsLeft();
-      // });
-
-      // // support to HOLD to mark bomb, works in Android by default
-      // if (iDevise) {
-      //   target.addEventListener('touchstart', function (evt) {
-      //     that.holding = setTimeout(function () {
-      //       target.dispatchEvent(new Event('contextmenu'));
-      //     }, 500);
-      //   });
-      //   target.addEventListener('touchend', function (evt) {
-      //     clearTimeout(that.holding);
-      //   });
-      // }
     });
-    // window.addEventListener('keydown', function (evt) {
-    //   if (evt.key == 'r' || evt.which == 'R'.charCodeAt()) {
-    //     that.restart();
-    //   }
-    // });
   }
   game() {
     if (this.result)
@@ -223,7 +182,7 @@ class Game {
       return;
     this.startTime = new Date();
     this.timer = setInterval(function () {
-      document.getElementById('timer').textContent = ((new Date() - game.startTime) / 1000).toFixed(2);
+      document.getElementById('timer').textContent = ((new Date() - game.startTime) / 1000).toFixed(0);
     }, 100);
   }
   mine(bomb) {
