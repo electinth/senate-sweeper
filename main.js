@@ -85,8 +85,7 @@ class Game {
           emoji = that.emojiset[3].cloneNode();
           target.isFlagged = false;
           target.classList.remove('flagged');
-        }
-        else {
+        } else {
           target.setAttribute('aria-label', 'Flagged as potential bomb');
           that.updateFeedback('Flagged as potential bomb');
           emoji = that.emojiset[2].cloneNode();
@@ -199,8 +198,9 @@ class Game {
     base.className = 'cell';
     base.appendChild(this.emojiset[3].cloneNode());
     base.isMasked = true;
-    if (bomb)
+    if (bomb) {
       base.isBomb = true;
+    }
     base.reveal = function(won) {
       let emoji = base.isBomb ? (won ? that.emojiset[2] : that.emojiset[1]) : that.numbermoji[base.mine_count];
       let text = base.isBomb ? (won ? "Bomb discovered" : "Boom!") : (base.mine_count === 0 ? "Empty field" : base.mine_count + " bombs nearby");
@@ -209,6 +209,9 @@ class Game {
       this.appendChild(emoji.cloneNode());
       this.isMasked = false;
       this.classList.add('unmasked');
+      if (base.isBomb) {
+        this.classList.add('bombed');
+      }
     };
     return base;
   }

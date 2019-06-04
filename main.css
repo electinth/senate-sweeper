@@ -335,12 +335,18 @@ button:active {
 
 .unmasked {
   cursor: default;
-  /* background-color: rgba(0, 0, 0, 0.12); */
+  color: rgba(0, 0, 0, 0.20);
 }
 .flagged {
   color: #F81745;
 }
 .selected {
+  color: #F81745;
+}
+.bombed {
+  color: #8c8c8c;
+}
+.flagged.bombed {
   color: #F81745;
 }
 
