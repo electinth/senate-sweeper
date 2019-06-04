@@ -349,6 +349,7 @@ button:hover {
 
 #map {
   white-space: nowrap;
+  text-align: left;
 }
 
 .wrapper {

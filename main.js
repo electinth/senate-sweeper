@@ -4,7 +4,7 @@ const feedback = document.getElementById('feedback');
 
 class Game {
   constructor(cols, rows, number_of_bombs, set, numbers) {
-    this.number_of_cells = cols * rows;
+    this.number_of_cells = 250; // cols * rows;
     this.map = document.getElementById('map');
     this.cols = Number(cols);
     this.rows = Number(rows);
@@ -50,7 +50,7 @@ class Game {
       mine.neighbors = neighbors_cords.map(xy => `.x${xy[0]}.y${xy[1]}`);
       cell.appendChild(mine);
       row.appendChild(cell);
-      if (x === that.cols) {
+      if (x === that.cols || i === this.number_of_cells - 1) {
         that.map.appendChild(row);
         row = document.createElement('div');
         row.setAttribute('role', 'row');
