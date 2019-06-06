@@ -209,14 +209,14 @@ a:hover {
   justify-content: center;
 }
 #senate-popup .inner {
-  height: 100px;
+  height: 110px;
   margin: 0 auto;
   padding: 15px 10px;
   text-align: center;
 }
 #senate-popup .inner h2 {
   line-height: 40px;
-  margin: 0;
+  margin-bottom: 10px;
 }
 #senate-popup .inner .button {
   display: inline-block;
@@ -225,8 +225,21 @@ a:hover {
   line-height: 32px;
   bottom: 10px;
 }
+#senate-popup .inner .button.flagged {
+  background-color: #F0324B;
+  color: white;
+}
+#senate-popup .inner .button.flagged span.highlight {
+  color: white;
+}
 .button.right-border {
   border-right: 1px solid rgba(0,0,0,0.07);
+}
+#senate-popup.shortened .inner {
+  height: 70px;
+}
+#senate-popup.shortened .inner .button {
+  display: none;
 }
 
 #feedback {

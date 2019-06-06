@@ -1,7 +1,7 @@
 /* global twemoji, alert, MouseEvent, game */
 const iDevise = navigator.platform.match(/^iP/);
 const feedback = document.getElementById('feedback');
-let level = 1;
+let level = 0;
 
 class Game {
   constructor(cols, rows, number_of_bombs, set, numbers) {
@@ -142,6 +142,16 @@ class Game {
           popup.style.bottom = '10px';
         }
         popup.getElementsByClassName('name')[0].textContent = target.name;
+        if (target.isFlagged) {
+          popup_button_flag.classList.add('flagged');
+        } else {
+          popup_button_flag.classList.remove('flagged');
+        }
+        if (!target.isMasked) {
+          popup.classList.add('shortened');
+        } else {
+          popup.classList.remove('shortened');
+        }
         popup.classList.add('shown');
 
         // remove previous events
@@ -296,7 +306,7 @@ restart();
 
 function restart () {
   clearInterval(game.timer)
-  // TODO adjust the number of bombs: คสช 20 & สนช 89
+  // TODO adjust the number of bombs by dropdown
   game = new Game(16, 16, levels[level]['yes'].length, [' ', '', '', ''], ['', '', '', '', '', '', '', '', ''])
   return false
 }
