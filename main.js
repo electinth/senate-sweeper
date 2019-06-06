@@ -1,6 +1,7 @@
 /* global twemoji, alert, MouseEvent, game */
 const iDevise = navigator.platform.match(/^iP/);
 const feedback = document.getElementById('feedback');
+let level = 1;
 
 class Game {
   constructor(cols, rows, number_of_bombs, set, numbers) {
@@ -27,7 +28,8 @@ class Game {
     let that = this;
     this.moveIt(true);
     this.map.innerHTML = '';
-    let grid_data = this.bomb_array(level0);
+    let grid_data = this.bomb_array(levels[level]);
+
     function getIndex(x, y) {
       if (x > that.cols || x <= 0) return -1;
       if (y > that.cols || y <= 0) return -1;
@@ -235,10 +237,10 @@ class Game {
   bomb_array(level) {
     let arr = [];
     for (let i = 0; i < this.number_of_bombs; i++) {
-      arr.push({ name: senate_names[level[true][i]-1], bomb: true });
+      arr.push({ name: senate_names[level['yes'][i]-1], bomb: true });
     }
     for (let i = 0; i < (this.number_of_cells - this.number_of_bombs); i++) {
-      arr.push({ name: senate_names[level[false][i]-1], bomb: false });
+      arr.push({ name: senate_names[level['no'][i]-1], bomb: false });
     }
     return this.shuffle(arr);
   }
@@ -295,7 +297,7 @@ restart();
 function restart () {
   clearInterval(game.timer)
   // TODO adjust the number of bombs: คสช 20 & สนช 89
-  game = new Game(16, 16, 20, [' ', '', '', ''], ['', '', '', '', '', '', '', '', ''])
+  game = new Game(16, 16, levels[level]['yes'].length, [' ', '', '', ''], ['', '', '', '', '', '', '', '', ''])
   return false
 }
 
