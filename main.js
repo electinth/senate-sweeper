@@ -67,6 +67,10 @@ class Game {
     let cells = document.getElementsByClassName('cell');
 
     const popup = document.getElementById('senate-popup');
+    popup.getElementsByClassName('close')[0].addEventListener('click', () => {
+      popup.classList.remove('shown');
+    });
+
     const popup_button_flag = popup.getElementsByClassName('button')[0];
     const popup_button_reveal = popup.getElementsByClassName('button')[1];
     let previous_listeners = [];
@@ -296,10 +300,15 @@ function restart () {
 }
 
 const popup = document.getElementById('instruction');
-// popup.addEventListener('click', () => {
-//   popup.classList.remove('shown');
-// });
-const popup_button = popup.getElementsByClassName('button')[0];
-popup_button.addEventListener('click', () => {
+popup.getElementsByClassName('button')[0].addEventListener('click', () => {
   popup.classList.remove('shown');
+});
+
+const info_popup = document.getElementById('information');
+info_popup.getElementsByClassName('close')[0].addEventListener('click', () => {
+  info_popup.classList.remove('shown');
+});
+const menubar = document.getElementById('menubar');
+menubar.getElementsByClassName('stat')[3].getElementsByClassName('icon')[0].addEventListener('click', () => {
+  info_popup.classList.add('shown');
 });

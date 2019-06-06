@@ -21,7 +21,7 @@ h3 {
   font-size: 14px;
 }
 
-span.icon {
+.icon {
   font-family: "Elect Minesweeper";
 }
 
@@ -56,6 +56,31 @@ a:hover {
 #language a:active,
 #language a:hover {
   color: white;
+}
+
+.close {
+  color: white;
+  opacity: 1;
+  text-shadow: none;
+  font-weight: normal;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.close:hover {
+  color: white;
+}
+.close::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.close.black {
+  color: black;
+}
+.close.black:hover {
+  color: black;
 }
 
 /* .site-header {
@@ -145,6 +170,23 @@ a:hover {
   bottom: 25px;
 }
 
+#information {
+  height: 100%;
+  top: 0;
+}
+#information .inner {
+  height: 360px;
+  margin: -180px auto 0;
+  top: 50%;
+  background-color: black;
+  color: white;
+  padding: 25px;
+  text-align: left;
+}
+#information .inner h2 {
+  text-align: center;
+}
+
 #senate-popup {
   display: flex;
   justify-content: center;
@@ -152,7 +194,7 @@ a:hover {
 #senate-popup .inner {
   height: 100px;
   margin: 0 auto;
-  padding: 20px 10px;
+  padding: 15px 10px;
   text-align: center;
 }
 #senate-popup .inner h2 {
@@ -432,6 +474,15 @@ button:hover {
   font-size: 16px;
   /* padding: 8px 10px 5px; */
   text-align: center;
+}
+.stat:first-of-type {
+  text-align: left;
+}
+.stat:last-of-type {
+  text-align: right;
+}
+.stat:last-of-type .icon {
+  cursor: pointer;
 }
 
 .settings {

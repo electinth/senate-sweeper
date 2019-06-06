@@ -85,7 +85,7 @@
 
   <section id="game">
     <div class="wrapper">
-      <div class="bar flex">
+      <div id="menubar" class="flex">
         <div class="stat flex-cell">คสช. เก่า</div>
         <!-- <div class="stat flex-cell">สนช. เก่า</div> -->
         <!-- <div class="stat flex-cell">เลือกประยุทธ์</div> -->
@@ -120,8 +120,20 @@
     </div>
   </section>
 
+  <section id="information" class="popup">
+    <div class="inner">
+      <div class="icon close"></div>
+      <h2>วิธีเล่น</h2>
+      <p>ส.ว. ที่เคยมีตำแหน่งในยุคคสช. ให้ <span style="font-weight: bold;">“หมายหัว”</span> ไว้ให้หมด</p>
+      <p>ส.ว. ที่คิดว่าไม่เคยมีตำแหน่งให้ <span style="font-weight: bold;">“เปิดตัว”</span></p>
+      <p>ส.ว. ที่มีตัวเลข จะบอกใบ้ว่ามีจำนวน ส.ว. ที่เคยมีตำแหน่งอยู่รอบๆเท่าไหร่</p>
+      <p>ถ้าหาแค่ คสช. เก่า มันง่ายไป ลองเปลี่ยนไปหาตำแหน่งอื่นอย่าง สนช. และอื่น ๆ ได้ (ที่มุมซ้ายบน)</p>
+    </div>
+  </section>
+
   <section id="senate-popup" class="popup">
     <div class="inner">
+      <div class="icon close black"></div>
       <h2 class="name"></h2>
       <div class="button right-border"><span class="icon highlight"></span> หมายหัว</div>
       <div class="button">เปิดตัว</div>
