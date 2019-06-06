@@ -199,13 +199,14 @@ class Game {
     }
     base.reveal = function(won) {
       let emoji = base.isBomb ? (won ? that.emojiset[2] : that.emojiset[1]) : that.numbermoji[base.mine_count];
-      let text = base.isBomb ? (won ? "Bomb discovered" : "Boom!") : (base.mine_count === 0 ? "Empty field" : base.mine_count + " bombs nearby");
       this.childNodes[0].remove();
       this.appendChild(emoji.cloneNode());
       this.isMasked = false;
       this.classList.add('unmasked');
       if (base.isBomb) {
         this.classList.add('bombed');
+      } else {
+        this.classList.add('mine_count_' + base.mine_count);
       }
     };
     return base;
@@ -277,10 +278,9 @@ class Game {
     buttons[1].addEventListener('click', evt => {
       feedback.classList.remove('shown');
     });
-    buttons[2].addEventListener('click', evt => {
-      // TODO senator info
-      feedback.classList.remove('shown');
-    });
+    // buttons[2].addEventListener('click', evt => {
+    //   feedback.classList.remove('shown');
+    // });
 
     feedback.classList.add('shown');
   }

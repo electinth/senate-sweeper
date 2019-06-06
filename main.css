@@ -21,6 +21,10 @@ h3 {
   font-size: 14px;
 }
 
+span.icon {
+  font-family: "Elect Minesweeper";
+}
+
 .highlight {
   color: #F0324B;
 }
@@ -372,6 +376,30 @@ button:hover {
 }
 .flagged.bombed {
   color: #F81745;
+}
+.mine_count_1 {
+  color: #789AD3;
+}
+.mine_count_2 {
+  color: #7DB678;
+}
+.mine_count_3 {
+  color: #CF7983;
+}
+.mine_count_4 {
+  color: #8A85D2;
+}
+.mine_count_5 {
+  color: #C075A5;
+}
+.mine_count_6 {
+  color: #6792BA;
+}
+.mine_count_7 {
+  color: #D2926A;
+}
+.mine_count_8 {
+  color: #9D7EC9;
 }
 
 #map {
