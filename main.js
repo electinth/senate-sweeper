@@ -9,7 +9,7 @@ class Game {
     this.cols = Number(cols);
     this.rows = Number(rows);
     this.number_of_bombs = Number(number_of_bombs);
-    this.rate = number_of_bombs / this.number_of_cells;
+    // this.rate = number_of_bombs / this.number_of_cells;
     this.emojiset = set; // number prefix, bomb, flagged, empty
     this.numbermoji = numbers;
     this.init();
@@ -27,7 +27,7 @@ class Game {
     let that = this;
     this.moveIt(true);
     this.map.innerHTML = '';
-    let grid_data = this.bomb_array();
+    let grid_data = this.bomb_array(level0);
     function getIndex(x, y) {
       if (x > that.cols || x <= 0) return -1;
       if (y > that.cols || y <= 0) return -1;
@@ -35,16 +35,18 @@ class Game {
     }
     let row = document.createElement('div');
     row.setAttribute('role', 'row');
-    grid_data.forEach((isBomb, i) => {
+    grid_data.forEach((senator, i) => {
+      let isBomb = senator.bomb;
+
       let cell = document.createElement('span');
       cell.setAttribute('role', 'gridcell');
-      let mine = that.mine(isBomb);
+      let mine = that.mine(senator.name, isBomb);
       let x = Math.floor((i + 1) % that.cols) || that.cols;
       let y = Math.ceil((i + 1) / that.cols);
       let neighbors_cords = [[x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y], [x - 1, y + 1], [x + 1, y - 1], [x + 1, y], [x + 1, y + 1]];
       if (!isBomb) {
         let neighbors = neighbors_cords.map(xy => grid_data[getIndex(xy[0], xy[1])]);
-        mine.mine_count = neighbors.filter(neighbor_bomb => neighbor_bomb).length;
+        mine.mine_count = neighbors.filter(neighbor => neighbor && neighbor.bomb).length;
       }
       mine.classList.add('x' + x, 'y' + y);
       mine.neighbors = neighbors_cords.map(xy => `.x${xy[0]}.y${xy[1]}`);
@@ -121,7 +123,7 @@ class Game {
         target.classList.remove('selected');
       }
 
-      // clicking on a cell and revealing cell
+      // clicking on a cell
       target.addEventListener('click', evt => {
         Array.prototype.forEach.call(cells, cell => {
           cell.classList.remove('selected');
@@ -133,6 +135,7 @@ class Game {
         } else {
           popup.style.bottom = '10px';
         }
+        popup.getElementsByClassName('name')[0].textContent = target.name;
         popup.classList.add('shown');
 
         // remove previous events
@@ -180,16 +183,17 @@ class Game {
       return;
     this.startTime = new Date();
     this.timer = setInterval(() => {
-      Array.from(document.getElementsByClassName('timer')).forEach(e => { e.textContent = ((new Date() - game.startTime) / 1000).toFixed(0) + ' วินาที' });
+      Array.from(document.getElementsByClassName('timer')).forEach(e => { e.textContent = ((new Date() - game.startTime) / 1000).toFixed(0) + ' วิ' });
     }, 100);
   }
-  mine(bomb) {
+  mine(name, bomb) {
     let that = this;
     let base = document.createElement('button');
     base.type = 'button';
     base.className = 'cell';
     base.appendChild(this.emojiset[3].cloneNode());
     base.isMasked = true;
+    base.name = name;
     if (bomb) {
       base.isBomb = true;
     }
@@ -223,14 +227,13 @@ class Game {
     this.emojiset = this.emojiset.map(makeEmojiElement);
     this.numbermoji = this.numbermoji.map(makeEmojiElement);
   }
-  bomb_array() { // TODO use real data from Google Sheets
-    let chance = Math.floor(this.rate * this.number_of_cells);
+  bomb_array(level) {
     let arr = [];
-    for (let i = 0; i < chance; i++) {
-      arr.push(true);
+    for (let i = 0; i < this.number_of_bombs; i++) {
+      arr.push({ name: senate_names[level[true][i]-1], bomb: true });
     }
-    for (let n = 0; n < (this.number_of_cells - chance); n++) {
-      arr.push(false);
+    for (let i = 0; i < (this.number_of_cells - this.number_of_bombs); i++) {
+      arr.push({ name: senate_names[level[false][i]-1], bomb: false });
     }
     return this.shuffle(arr);
   }
@@ -251,6 +254,7 @@ class Game {
   updateBombsLeft() {
     let flagged = Array.prototype.filter.call(document.getElementsByClassName('cell'), target => target.isFlagged);
     Array.from(document.getElementsByClassName('bombs-left')).forEach(e => { e.textContent = `${this.number_of_bombs - flagged.length}` });
+    Array.from(document.getElementsByClassName('score')).forEach(e => { e.textContent = `${flagged.length}` }); // TODO use real score
   }
   showMessage() {
     document.querySelector('.wrapper').classList.add(this.result);
@@ -261,7 +265,7 @@ class Game {
 
     clearInterval(this.timer);
     Array.from(document.getElementsByClassName('timer')).forEach(
-      e => { e.textContent = ((new Date() - this.startTime) / 1000).toFixed(0) + ' วินาที' }
+      e => { e.textContent = ((new Date() - this.startTime) / 1000).toFixed(0) + ' วิ' }
     );
 
     // buttons
