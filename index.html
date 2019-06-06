@@ -86,9 +86,11 @@
   <section id="game">
     <div class="wrapper">
       <div class="bar flex">
-        <div class="stat flex-cell">เลเวล: ยาก</div>
-        <div class="stat flex-cell">❗️ <span id="bombs-left"></span></div>
-        <div class="stat flex-cell">⏱ <span id="timer"></span></div>
+        <div class="stat flex-cell">คสช. เก่า</div>
+        <!-- <div class="stat flex-cell">สนช. เก่า</div> -->
+        <!-- <div class="stat flex-cell">เลือกประยุทธ์</div> -->
+        <div class="stat flex-cell">❗️ <span class="bombs-left"></span></div>
+        <div class="stat flex-cell">⏱ <span class="timer"></span></div>
         <div class="stat flex-cell">ℹ️</div>
       </div>
       <div id="map" role="grid">
@@ -107,8 +109,8 @@
     </div>
   </section>
 
-  <section id="popup" class="shown">
-    <div id="instruction">
+  <section id="instruction" class="popup shown">
+    <div class="inner">
       <h1>MINESWEEPER</h1>
       <h2>หมายหัว ส.ว. เครือข่าย คสช.</h2>
       <p>ส.ว. ที่เคยมีตำแหน่งในยุคคสช. ให้ <span style="font-weight: bold;">“หมายหัว”</span> ไว้ให้หมด</p>
@@ -118,16 +120,26 @@
     </div>
   </section>
 
-  <section id="senate-popup">
+  <section id="senate-popup" class="popup">
     <div class="inner">
-      <div class="name">พล.อ.ปรีชา จันทร์โอชา</div>
+      <h2 class="name">พล.อ.ปรีชา จันทร์โอชา</h2>
       <div class="button right-border">❗️ หมายหัว</div>
       <div class="button">เปิดตัว</div>
     </div>
   </section>
 
-  <section id="feedback">
+  <section id="feedback" class="popup">
     <div class="inner">
+      <h1 class="emoji"></h1>
+      <em><h1 class="title"></h1></em>
+      <h2 class="subtitle"></h2>
+      <div class="column">❗️ <span class="bombs-left"></span></div>
+      <div class="column">⏱ <span class="timer"></span></div>
+      <div class="buttons">
+        <div class="button highlight">เล่นใหม่</div>
+        <a href="https://www.facebook.com/electinthai"><div class="button">แชร์คะแนน</div></a>
+        <div class="button">รู้จัก 250 ส.ว.</div>
+      </div>
     </div>
   </section>
 

@@ -78,107 +78,134 @@ a:hover {
   width: 100%;
 }
 
-#popup {
+.popup {
   position: fixed;
   width: 100%;
-  height: 100%;
-  top: 0;
   left: 0;
   text-align: center;
   opacity: 0;
   pointer-events: none;
   z-index: 3;
 }
-#popup.shown {
+.popup.shown {
   opacity: 1;
   pointer-events: auto;
 }
-#instruction {
+.popup .inner {
   width: 300px;
-  height: 360px;
-  margin: -180px auto 0;
   position: relative;
-  top: 50%;
   vertical-align: middle;
-  background-color: black;
-  color: white;
-  padding: 25px;
   font-size: 14px;
   font-family: 'Noto Sans Thai UI';
-  text-align: left;
-}
-#instruction h1 {
-  font-size: 27px;
-  font-family: 'Libre Baskerville';
-  font-weight: bold;
-}
-#instruction h2 {
-  font-size: 19px;
-  font-family: 'The Matter';
-  font-weight: normal;
-}
-#instruction .button {
-  background-color: #F0324B;
-  width: 250px;
-  height: 48px;
-  position: absolute;
-  bottom: 25px;
-  font-size: 16px;
-  line-height: 48px;
-  text-align: center;
-  cursor: pointer;
-}
-
-#senate-popup {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 3;
-  display: flex;
-  justify-content: center;
-}
-#senate-popup.shown {
-  opacity: 1;
-  pointer-events: auto;
-}
-#senate-popup .inner {
-  width: 300px;
-  height: 100px;
-  margin: 0 auto;
-  position: relative;
-  vertical-align: middle;
   background-color: white;
   color: black;
   border: 1px solid rgba(0,0,0,0.07);
   border-radius: 2px;
-  padding: 20px 10px;
-  font-size: 14px;
-  font-family: 'Noto Sans Thai UI';
-  text-align: center;
   box-shadow: 0 12px 24px 0 rgba(0,0,0,0.24);
 }
-#senate-popup .name {
-  font-size: 20px;
-  line-height: 40px;
-  font-family: 'The Matter';
-  font-weight: normal;
-}
-#senate-popup .button {
-  width: 130px;
-  height: 32px;
-  display: inline-block;
-  bottom: 10px;
+.popup .inner .button {
+  width: 250px;
+  height: 48px;
+  line-height: 48px;
   font-size: 16px;
-  line-height: 32px;
   text-align: center;
   cursor: pointer;
 }
+.popup .inner h1 {
+  font-size: 27px;
+  font-family: 'Libre Baskerville';
+  font-weight: bold;
+}
+.popup .inner h2 {
+  font-size: 20px;
+  font-family: 'The Matter';
+  font-weight: normal;
+}
 
+#instruction {
+  height: 100%;
+  top: 0;
+}
+#instruction .inner {
+  height: 360px;
+  margin: -180px auto 0;
+  top: 50%;
+  background-color: black;
+  color: white;
+  padding: 25px;
+  text-align: left;
+}
+#instruction .inner .button {
+  background-color: #F0324B;
+  position: absolute;
+  bottom: 25px;
+}
+
+#senate-popup {
+  display: flex;
+  justify-content: center;
+}
+#senate-popup .inner {
+  height: 100px;
+  margin: 0 auto;
+  padding: 20px 10px;
+  text-align: center;
+}
+#senate-popup .inner h2 {
+  line-height: 40px;
+  margin: 0;
+}
+#senate-popup .inner .button {
+  display: inline-block;
+  width: 130px;
+  height: 32px;
+  line-height: 32px;
+  bottom: 10px;
+}
 .button.right-border {
   border-right: 1px solid rgba(0,0,0,0.07);
+}
+
+#feedback {
+  height: 100%;
+  top: 0;
+}
+#feedback .inner {
+  height: 360px;
+  margin: -180px auto 0;
+  top: 50%;
+  background-color: white;
+  color: black;
+  padding: 25px;
+  text-align: center;
+}
+#feedback h1 {
+  line-height: 24px;
+}
+#feedback h2 {
+  color: #F0324B;
+  font-family: 'Noto Sans Thai UI';
+  font-size: 16px;
+  line-height: 24px;
+}
+#feedback .column {
+  display: inline-block;
+  width: 120px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 16px;
+}
+#feedback .inner .buttons {
+  position: absolute;
+  bottom: 25px;
+}
+#feedback .inner .buttons a {
+  text-decoration: none;
+  color: black;
+}
+#feedback .inner .button.highlight {
+  background-color: black;
+  color: white;
 }
 
 #game {

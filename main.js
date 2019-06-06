@@ -172,7 +172,7 @@ class Game {
     this.init();
   }
   resetMetadata() {
-    document.getElementById('timer').textContent = '0 วินาที';
+    Array.from(document.getElementsByClassName('timer')).forEach(e => { e.textContent = '0 วินาที' });
     document.querySelector('.wrapper').classList.remove('won', 'lost');
   }
   startTimer() {
@@ -180,7 +180,7 @@ class Game {
       return;
     this.startTime = new Date();
     this.timer = setInterval(() => {
-      document.getElementById('timer').textContent = ((new Date() - game.startTime) / 1000).toFixed(0);
+      Array.from(document.getElementsByClassName('timer')).forEach(e => { e.textContent = ((new Date() - game.startTime) / 1000).toFixed(0) + ' วินาที' });
     }, 100);
   }
   mine(bomb) {
@@ -250,22 +250,35 @@ class Game {
   }
   updateBombsLeft() {
     let flagged = Array.prototype.filter.call(document.getElementsByClassName('cell'), target => target.isFlagged);
-    document.getElementById('bombs-left').textContent = `${this.number_of_bombs - flagged.length}`;
-  }
-  updateFeedback(text) { // TODO show popup for result
-    feedback.textContent = text;
-    // Toggle period to force voiceover to read out the same content
-    if (this.feedbackToggle)
-      feedback.textContent += ".";
-    this.feedbackToggle = !this.feedbackToggle;
+    Array.from(document.getElementsByClassName('bombs-left')).forEach(e => { e.textContent = `${this.number_of_bombs - flagged.length}` });
   }
   showMessage() {
-    clearInterval(this.timer);
-    let seconds = ((new Date() - this.startTime) / 1000).toFixed(0);
-    let winner = this.result === 'won';
-    this.updateFeedback(winner ? "Yay, you won!" : "Boom! you lost.");
     document.querySelector('.wrapper').classList.add(this.result);
-    document.getElementById('timer').textContent = seconds;
+
+    feedback.getElementsByClassName('emoji')[0].textContent = (this.result === 'won')? '😀' : '😵';
+    feedback.getElementsByClassName('title')[0].textContent = (this.result === 'won')? 'You Won' : 'Game Over';
+    feedback.getElementsByClassName('subtitle')[0].textContent = (this.result === 'won')? 'เยี่ยมมาก คุณดูออกหมดเลย' : 'พลาดแล้ว คุณดูคนผิด';
+
+    clearInterval(this.timer);
+    Array.from(document.getElementsByClassName('timer')).forEach(
+      e => { e.textContent = ((new Date() - this.startTime) / 1000).toFixed(0) + ' วินาที' }
+    );
+
+    // buttons
+    let buttons = feedback.getElementsByClassName('button');
+    buttons[0].addEventListener('click', evt => {
+      feedback.classList.remove('shown');
+      restart();
+    });
+    buttons[1].addEventListener('click', evt => {
+      feedback.classList.remove('shown');
+    });
+    buttons[2].addEventListener('click', evt => {
+      // TODO senator info
+      feedback.classList.remove('shown');
+    });
+
+    feedback.classList.add('shown');
   }
 }
 
@@ -278,7 +291,7 @@ function restart () {
   return false
 }
 
-const popup = document.getElementById('popup');
+const popup = document.getElementById('instruction');
 // popup.addEventListener('click', () => {
 //   popup.classList.remove('shown');
 // });
