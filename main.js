@@ -1,7 +1,6 @@
 /* global twemoji, alert, MouseEvent, game */
 const iDevise = navigator.platform.match(/^iP/);
 const feedback = document.getElementById('feedback');
-let level = 0;
 
 class Game {
   constructor(cols, rows, number_of_bombs, set, numbers) {
@@ -184,12 +183,12 @@ class Game {
       this.showMessage();
     }
   }
-  restart() {
-    clearInterval(this.timer);
-    this.result = false;
-    this.timer = false;
-    this.init();
-  }
+  // restart() {
+  //   clearInterval(this.timer);
+  //   this.result = false;
+  //   this.timer = false;
+  //   this.init();
+  // }
   resetMetadata() {
     Array.from(document.getElementsByClassName('timer')).forEach(e => { e.textContent = '0 วินาที' });
     document.querySelector('.wrapper').classList.remove('won', 'lost');
@@ -302,14 +301,18 @@ class Game {
   }
 }
 
-restart();
+let level = 0;
+function change_level(dropdown) {
+  level = +dropdown.value;
+  restart();
+}
 
-function restart () {
+function restart() {
   clearInterval(game.timer)
-  // TODO adjust the number of bombs by dropdown
   game = new Game(16, 16, levels[level]['yes'].length, [' ', '', '', ''], ['', '', '', '', '', '', '', '', ''])
   return false
 }
+restart();
 
 const popup = document.getElementById('instruction');
 popup.getElementsByClassName('button')[0].addEventListener('click', () => {

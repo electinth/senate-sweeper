@@ -510,9 +510,13 @@ button:hover {
 }
 .stat:last-of-type {
   text-align: right;
+  flex: 1 1;
 }
 .stat:last-of-type .icon {
   cursor: pointer;
+}
+.stat select {
+  width: 100%;
 }
 
 .settings {

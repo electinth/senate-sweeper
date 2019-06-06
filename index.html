@@ -86,9 +86,16 @@
   <section id="game">
     <div class="wrapper">
       <div id="menubar" class="flex">
-        <div class="stat flex-cell">คสช. เก่า</div>
+        <!-- <div class="stat flex-cell">คสช. เก่า</div> -->
         <!-- <div class="stat flex-cell">สนช. เก่า</div> -->
         <!-- <div class="stat flex-cell">เลือกประยุทธ์</div> -->
+        <div class="stat flex-cell">
+          <select id="level-dropdown" onchange="change_level(this)">
+            <option value="0">คสช. เก่า</option>
+            <option value="1">สนช. เก่า</option>
+            <option value="2">เลือกประยุทธ์เป็นนายกฯ</option>
+          </select>
+        </div>
         <div class="stat flex-cell"><span class="icon highlight"></span> <span class="bombs-left"></span></div>
         <div class="stat flex-cell"><span class="icon"></span> <span class="timer"></span></div>
         <div class="stat flex-cell"><span class="icon"></span></div>
@@ -149,7 +156,7 @@
       <div class="column"><span class="icon"></span> <span class="timer"></span>นาที </div>
       <div class="buttons">
         <div class="button highlight">เล่นใหม่</div>
-        <a href="https://www.facebook.com/electinthai"><div class="button">แชร์คะแนน</div></a>
+        <a href="https://www.facebook.com/electinthai"><div class="button">ชวนเพื่อนมาเล่น</div></a>
         <!-- <div class="button">รู้จัก 250 ส.ว.</div> -->
       </div>
     </div>
