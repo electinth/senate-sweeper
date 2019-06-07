@@ -505,6 +505,9 @@ button:hover {
 .mine_count_8 {
   color: #9D7EC9;
 }
+button[class*="mine_count_"].flagged {
+  color: #F81745; 
+}
 
 #map {
   white-space: nowrap;

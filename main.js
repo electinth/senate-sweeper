@@ -177,8 +177,7 @@ class Game {
       Array.prototype.forEach.call(masked, cell => { cell.reveal(); });
       this.result = 'lost';
       this.showFeedback();
-    }
-    else if (masked.length === this.number_of_bombs) {
+    } else if (masked.length === this.number_of_bombs) {
       Array.prototype.forEach.call(masked, cell => { cell.reveal(true); });
       this.result = 'won';
       this.showFeedback();
@@ -272,7 +271,6 @@ class Game {
   updateBombsLeft() {
     let flagged = Array.prototype.filter.call(document.getElementsByClassName('cell'), target => target.isFlagged);
     Array.from(document.getElementsByClassName('bombs-left')).forEach(e => { e.textContent = `${this.number_of_bombs - flagged.length}` });
-    Array.from(document.getElementsByClassName('score')).forEach(e => { e.textContent = `${flagged.length}` }); // TODO use real score
   }
   showFeedback() {
     document.querySelector('.wrapper').classList.add(this.result);
@@ -280,6 +278,12 @@ class Game {
     feedback.getElementsByClassName('emoji')[0].textContent = (this.result === 'won')? '😀' : '😵';
     feedback.getElementsByClassName('title')[0].textContent = (this.result === 'won')? 'You Won' : 'Game Over';
     feedback.getElementsByClassName('subtitle')[0].textContent = (this.result === 'won')? 'เยี่ยมมาก คุณดูออกหมดเลย' : 'พลาดแล้ว คุณดูคนผิด';
+
+    let cells = document.getElementsByClassName('cell');
+    let score = Array.prototype.filter.call(cells, cell => cell.isBomb && cell.isFlagged).length;
+    Array.from(document.getElementsByClassName('score')).forEach(e => { 
+      e.textContent = score;
+    });
 
     clearInterval(this.timer);
     Array.from(document.getElementsByClassName('timer')).forEach(
