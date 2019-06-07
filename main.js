@@ -41,7 +41,7 @@ class Game {
 
       let cell = document.createElement('span');
       cell.setAttribute('role', 'gridcell');
-      let mine = that.mine(senator.name, isBomb);
+      let mine = that.mine(senator.id, senator.name, isBomb);
       let x = Math.floor((i + 1) % that.cols) || that.cols;
       let y = Math.ceil((i + 1) / that.cols);
       let neighbors_cords = [[x, y - 1], [x, y + 1], [x - 1, y - 1], [x - 1, y], [x - 1, y + 1], [x + 1, y - 1], [x + 1, y], [x + 1, y + 1]];
@@ -140,6 +140,7 @@ class Game {
         } else {
           popup.style.bottom = '20px';
         }
+        popup.getElementsByClassName('image')[0].style.backgroundImage = `url(images/${target.cellId}.jpg)`;
         popup.getElementsByClassName('name')[0].textContent = target.name;
         if (target.isFlagged) {
           popup_button_flag.classList.add('flagged');
@@ -201,7 +202,7 @@ class Game {
       Array.from(document.getElementsByClassName('timer')).forEach(e => { e.textContent = ((new Date() - game.startTime) / 1000).toFixed(0) + ' วิ' });
     }, 100);
   }
-  mine(name, bomb) {
+  mine(id, name, bomb) {
     let that = this;
     let base = document.createElement('button');
     base.type = 'button';
@@ -209,6 +210,7 @@ class Game {
     base.appendChild(this.emojiset[3].cloneNode());
     base.isMasked = true;
     base.name = name;
+    base.cellId = id;
     if (bomb) {
       base.isBomb = true;
     }
@@ -246,10 +248,10 @@ class Game {
   bomb_array(level) {
     let arr = [];
     for (let i = 0; i < this.number_of_bombs; i++) {
-      arr.push({ name: senate_names[level['yes'][i]-1], bomb: true });
+      arr.push({ id: level['yes'][i], name: senate_names[level['yes'][i]-1], bomb: true });
     }
     for (let i = 0; i < (this.number_of_cells - this.number_of_bombs); i++) {
-      arr.push({ name: senate_names[level['no'][i]-1], bomb: false });
+      arr.push({ id: level['no'][i], name: senate_names[level['no'][i]-1], bomb: false });
     }
     return this.shuffle(arr);
   }
