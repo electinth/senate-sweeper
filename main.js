@@ -138,7 +138,7 @@ class Game {
         if (evt.clientY > window.innerHeight - 150) {
           popup.style.bottom = '150px';
         } else {
-          popup.style.bottom = '10px';
+          popup.style.bottom = '20px';
         }
         popup.getElementsByClassName('name')[0].textContent = target.name;
         if (target.isFlagged) {
@@ -175,12 +175,12 @@ class Game {
     if (bombs.length > 0) {
       Array.prototype.forEach.call(masked, cell => { cell.reveal(); });
       this.result = 'lost';
-      this.showMessage();
+      this.showFeedback();
     }
     else if (masked.length === this.number_of_bombs) {
       Array.prototype.forEach.call(masked, cell => { cell.reveal(true); });
       this.result = 'won';
-      this.showMessage();
+      this.showFeedback();
     }
   }
   // restart() {
@@ -272,7 +272,7 @@ class Game {
     Array.from(document.getElementsByClassName('bombs-left')).forEach(e => { e.textContent = `${this.number_of_bombs - flagged.length}` });
     Array.from(document.getElementsByClassName('score')).forEach(e => { e.textContent = `${flagged.length}` }); // TODO use real score
   }
-  showMessage() {
+  showFeedback() {
     document.querySelector('.wrapper').classList.add(this.result);
 
     feedback.getElementsByClassName('emoji')[0].textContent = (this.result === 'won')? '😀' : '😵';
@@ -283,6 +283,10 @@ class Game {
     Array.from(document.getElementsByClassName('timer')).forEach(
       e => { e.textContent = ((new Date() - this.startTime) / 1000).toFixed(0) + ' วิ' }
     );
+
+    feedback.getElementsByClassName('close')[0].addEventListener('click', () => {
+      feedback.classList.remove('shown');
+    });
 
     // buttons
     let buttons = feedback.getElementsByClassName('button');
